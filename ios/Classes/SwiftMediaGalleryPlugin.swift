@@ -63,7 +63,6 @@ public class SwiftMediaGalleryPlugin: NSObject, FlutterPlugin {
     private func listMediaCollections(mediaTypes: [String]) -> [NSDictionary] {
         self.collections = []
         var total = 0
-        let fetchOptions = PHFetchOptions()
         var collections = [NSDictionary]()
         
         var collectionIds = Set<String>()
@@ -72,9 +71,6 @@ public class SwiftMediaGalleryPlugin: NSObject, FlutterPlugin {
             let (collection, hideIfEmpty) = arg
             let options = PHFetchOptions()
             options.predicate = self.predicateFromMediaTypes(mediaTypes: mediaTypes)
-                                if #available(iOS 9, *) {
-                                    fetchOptions.fetchLimit = 1
-                                }
                                 let count = PHAsset.fetchAssets(in: collection, options: options).count
             if(count > 0 || !hideIfEmpty) {
                 total+=count;
@@ -128,20 +124,25 @@ public class SwiftMediaGalleryPlugin: NSObject, FlutterPlugin {
             }
         }
 
+        let options = PHFetchOptions()
+        if #available(iOS 9, *) {
+            options.fetchLimit = 1
+        }
+        
         // Try to add "Camera Roll" first.
-        processPHAssetCollections((fetchResult: PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: fetchOptions),
+        processPHAssetCollections((fetchResult: PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumUserLibrary, options: options),
                                    hideIfEmpty: false))
 
         // Favorites
-        processPHAssetCollections((fetchResult: PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: fetchOptions),
+        processPHAssetCollections((fetchResult: PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .smartAlbumFavorites, options: options),
                                    hideIfEmpty: false))
 
         // Smart albums.
-        processPHAssetCollections((fetchResult: PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: fetchOptions),
+        processPHAssetCollections((fetchResult: PHAssetCollection.fetchAssetCollections(with: .smartAlbum, subtype: .albumRegular, options: options),
                                    hideIfEmpty: false))
 
         // User-created albums.
-        processPHCollections((fetchResult: PHAssetCollection.fetchTopLevelUserCollections(with: fetchOptions),
+        processPHCollections((fetchResult: PHAssetCollection.fetchTopLevelUserCollections(with: PHFetchOptions()),
                               hideIfEmpty: false))
         
         collections.insert([

@@ -4,9 +4,17 @@ part of media_gallery;
 class MediaThumbnailProvider extends ImageProvider<MediaThumbnailProvider> {
   const MediaThumbnailProvider({
     required this.media,
+    this.width,
+    this.height,
+    this.highQuality = false,
   }) : assert(media != null);
 
   final Media media;
+
+  final int? width;
+  final int? height;
+
+  final bool highQuality;
 
   @override
   ImageStreamCompleter load(key, decode) {
@@ -22,7 +30,7 @@ class MediaThumbnailProvider extends ImageProvider<MediaThumbnailProvider> {
   Future<ui.Codec> _loadAsync(
       MediaThumbnailProvider key, DecoderCallback decode) async {
     assert(key == this);
-    final bytes = await media.getThumbnail();
+    final bytes = await media.getThumbnail(width: width, height: height, highQuality: highQuality);
     if (bytes.length == 0) return await decode([] as Uint8List);
 
     return await decode(bytes as Uint8List);

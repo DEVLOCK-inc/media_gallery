@@ -71,7 +71,7 @@ public class SwiftMediaGalleryPlugin: NSObject, FlutterPlugin {
             let (collection, hideIfEmpty) = arg
             let options = PHFetchOptions()
             options.predicate = self.predicateFromMediaTypes(mediaTypes: mediaTypes)
-                                let count = PHAsset.fetchAssets(in: collection, options: options).count
+//                                 let count = PHAsset.fetchAssets(in: collection, options: options).count
             if(count > 0 || !hideIfEmpty) {
                 total+=count;
                 self.collections.append(collection);
@@ -79,7 +79,7 @@ public class SwiftMediaGalleryPlugin: NSObject, FlutterPlugin {
                              "id": collection.localIdentifier,
                              "collectionType": "album",
                              "name": collection.localizedTitle ?? "Unknown",
-                             "count" :count,
+                             "count" :1,
                          ])
             }
         }

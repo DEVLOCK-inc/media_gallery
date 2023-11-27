@@ -72,8 +72,9 @@ public class SwiftMediaGalleryPlugin: NSObject, FlutterPlugin {
             let options = PHFetchOptions()
             options.predicate = self.predicateFromMediaTypes(mediaTypes: mediaTypes)
 //                                 let count = PHAsset.fetchAssets(in: collection, options: options).count
-            if(count > 0 || !hideIfEmpty) {
-                total+=count;
+//             if(count > 0 || !hideIfEmpty) {
+            if(!hideIfEmpty) {
+//                 total+=1;
                 self.collections.append(collection);
                 collections.append([
                              "id": collection.localIdentifier,

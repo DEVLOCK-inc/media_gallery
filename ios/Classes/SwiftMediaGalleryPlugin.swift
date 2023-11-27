@@ -168,7 +168,7 @@ public class SwiftMediaGalleryPlugin: NSObject, FlutterPlugin {
     
     private func listMedias(collectionId: String, skip: NSNumber?, take: NSNumber?, mediaType: String) -> NSDictionary {
         let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false), NSSortDescriptor(key: "modificationDate", ascending: false)]
         fetchOptions.predicate = predicateFromMediaType(mediaType: mediaType)
         
         let collection = self.collections.first(where: { (collection) -> Bool in

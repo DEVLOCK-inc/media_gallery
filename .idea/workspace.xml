@@ -5,6 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3f04fbf4-b3b8-4f08-99c6-d34a53fdd922" name="Changes" comment="IOS에서 유저 앨범을 하나만 가져오는 버그 수정.">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ios/Classes/SwiftMediaGalleryPlugin.swift" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Classes/SwiftMediaGalleryPlugin.swift" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

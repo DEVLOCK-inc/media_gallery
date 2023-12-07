@@ -150,7 +150,8 @@ public class SwiftMediaGalleryPlugin: NSObject, FlutterPlugin {
             "id": "__ALL__",
             "collectionType": "album",
             "name": "All",
-            "count" : countMedias(collection: nil, mediaTypes: mediaTypes),
+            "count" : 1,
+//             "count" : countMedias(collection: nil, mediaTypes: mediaTypes),
         ], at: 0)
         
         return collections
@@ -244,7 +245,7 @@ public class SwiftMediaGalleryPlugin: NSObject, FlutterPlugin {
         let manager = PHImageManager.default()
             
         let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false)]
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key:"creationDate", ascending: false), NSSortDescriptor(key: "modificationDate", ascending: false)]
         if #available(iOS 9, *) {
             fetchOptions.fetchLimit = 1
         }

@@ -7,19 +7,19 @@ class MediaPickerSelection extends ChangeNotifier {
   final int maxItems;
 
   MediaPickerSelection({
-    this.maxItems,
+    this.maxItems = 10,
     this.mediaTypes = const <MediaType>[
       MediaType.image,
       MediaType.video,
     ],
-    List<Media> selectedMedias,
+    List<Media>? selectedMedias,
   }) : selectedMedias = selectedMedias ?? <Media>[];
 
-  static MediaPickerSelection of(BuildContext context) {
+  static MediaPickerSelection? of(BuildContext context) {
     final provider = context
         .dependOnInheritedWidgetOfExactType<MediaPickerSelectionProvider>();
     assert(provider != null);
-    return provider.selection;
+    return provider?.selection;
   }
 
   void add(Media media) {
@@ -51,9 +51,9 @@ class MediaPickerSelectionProvider extends InheritedWidget {
   final MediaPickerSelection selection;
 
   const MediaPickerSelectionProvider({
-    Key key,
-    @required Widget child,
-    @required this.selection,
+    Key? key,
+    required Widget child,
+    required this.selection,
   }) : super(
           key: key,
           child: child,

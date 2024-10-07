@@ -6,9 +6,9 @@ class Selectable extends StatelessWidget {
   final Widget child;
 
   const Selectable({
-    Key key,
-    @required this.isSelected,
-    @required this.child,
+    Key? key,
+    required this.isSelected,
+    required this.child,
   }) : super(key: key);
 
   @override
@@ -36,7 +36,7 @@ class Selectable extends StatelessWidget {
                 child: AnimatedContainer(
                   duration: duration,
                   curve: Curves.easeInOut,
-                  color: theme.accentColor.withOpacity(isSelected ? 0.4 : 0),
+                  color: theme.colorScheme.secondary.withOpacity(isSelected ? 0.4 : 0),
                 ),
               ),
               AnimatedOpacity(
@@ -45,7 +45,7 @@ class Selectable extends StatelessWidget {
                 child: Center(
                   child: Container(
                     decoration: BoxDecoration(
-                      color: theme.accentColor,
+                      color: theme.colorScheme.secondary,
                       shape: BoxShape.circle,
                     ),
                     padding: const EdgeInsets.all(4.0),

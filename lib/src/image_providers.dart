@@ -28,12 +28,12 @@ class MediaThumbnailProvider extends ImageProvider<MediaThumbnailProvider> {
   }
 
   Future<ui.Codec> _loadAsync(
-      MediaThumbnailProvider key, DecoderCallback decode) async {
+      MediaThumbnailProvider key, DecoderBufferCallback decode) async {
     assert(key == this);
     final bytes = await media.getThumbnail(width: width, height: height, highQuality: highQuality);
-    if (bytes.length == 0) return await decode([] as Uint8List);
+    if (bytes.length == 0) return await decode([] as ImmutableBuffer);
 
-    return await decode(bytes as Uint8List);
+    return await decode(bytes as ImmutableBuffer);
   }
 
   @override
@@ -76,12 +76,12 @@ class MediaCollectionThumbnailProvider
   }
 
   Future<ui.Codec> _loadAsync(
-      MediaCollectionThumbnailProvider key, DecoderCallback decode) async {
+      MediaCollectionThumbnailProvider key, DecoderBufferCallback decode) async {
     assert(key == this);
     final bytes = await collection.getThumbnail();
-    if (bytes == null || bytes.length == 0) return await decode([] as Uint8List);
+    if (bytes == null || bytes.length == 0) return await decode([] as ImmutableBuffer);
 
-    return await decode(bytes as Uint8List);
+    return await decode(bytes as ImmutableBuffer);
   }
 
   @override
@@ -127,15 +127,15 @@ class MediaImageProvider extends ImageProvider<MediaImageProvider> {
   }
 
   Future<ui.Codec> _loadAsync(
-      MediaImageProvider key, DecoderCallback decode) async {
+      MediaImageProvider key, DecoderBufferCallback decode) async {
     assert(key == this);
     final file = await media.getFile();
-    if (file == null) return await decode([] as Uint8List);
+    if (file == null) return await decode([] as ImmutableBuffer);
 
     final bytes = await file.readAsBytes();
-    if (bytes.lengthInBytes == 0) return await decode([] as Uint8List);
+    if (bytes.lengthInBytes == 0) return await decode([] as ImmutableBuffer);
 
-    return await decode(bytes);
+    return await decode(bytes as ImmutableBuffer);
   }
 
   @override

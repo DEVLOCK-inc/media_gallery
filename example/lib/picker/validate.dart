@@ -6,7 +6,7 @@ class PickerValidateButton extends StatelessWidget {
   final ValueChanged<MediaPickerSelection> onValidate;
 
   const PickerValidateButton({
-    @required this.onValidate,
+    required this.onValidate,
   });
 
   @override
@@ -16,23 +16,23 @@ class PickerValidateButton extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(right: 8.0),
       child: AnimatedBuilder(
-        animation: selection,
+        animation: selection!,
         builder: (context, _) {
           return Center(
             child: AnimatedOpacity(
               duration: const Duration(milliseconds: 100),
-              opacity: selection.selectedMedias.isNotEmpty ? 1.0 : 0.3,
+              opacity: selection!.selectedMedias.isNotEmpty ? 1.0 : 0.3,
               child: Material(
                 color: (theme.appBarTheme.iconTheme ?? IconTheme.of(context))
                     .color,
                 borderRadius: BorderRadius.circular(100),
                 child: InkWell(
-                  focusColor: theme.accentColor.withOpacity(0.2),
-                  hoverColor: theme.accentColor.withOpacity(0.1),
-                  highlightColor: theme.accentColor.withOpacity(0.5),
+                  focusColor: theme.colorScheme.secondary.withOpacity(0.2),
+                  hoverColor: theme.colorScheme.secondary.withOpacity(0.1),
+                  highlightColor: theme.colorScheme.secondary.withOpacity(0.5),
                   borderRadius: BorderRadius.circular(100),
-                  splashColor: theme.accentColor.withOpacity(0.5),
-                  onTap: selection.selectedMedias.isNotEmpty
+                  splashColor: theme.colorScheme.secondary.withOpacity(0.5),
+                  onTap: selection!.selectedMedias.isNotEmpty
                       ? () => onValidate(selection)
                       : null,
                   child: Padding(
@@ -45,7 +45,7 @@ class PickerValidateButton extends StatelessWidget {
                             selection.selectedMedias.length.toString(),
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: theme.accentColor,
+                              color: theme.colorScheme.secondary,
                             ),
                           ),
                           SizedBox(
@@ -54,7 +54,7 @@ class PickerValidateButton extends StatelessWidget {
                         ],
                         Icon(
                           Icons.check,
-                          color: theme.accentColor,
+                          color: theme.colorScheme.secondary,
                         ),
                       ],
                     ),

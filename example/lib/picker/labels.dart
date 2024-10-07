@@ -13,21 +13,21 @@ class MediaPickerLabels {
   final String openSettings;
 
   const MediaPickerLabels({
-    @required this.collectionsTitle,
-    @required this.images,
-    @required this.videos,
-    @required this.albums,
-    @required this.items,
-    @required this.mediaNotAuthorizedAccessTitle,
-    @required this.mediaNotAuthorizedAccessDescription,
-    @required this.openSettings,
+    required this.collectionsTitle,
+    required this.images,
+    required this.videos,
+    required this.albums,
+    required this.items,
+    required this.mediaNotAuthorizedAccessTitle,
+    required this.mediaNotAuthorizedAccessDescription,
+    required this.openSettings,
   });
 
-  static MediaPickerLabels of(BuildContext context) {
+  static MediaPickerLabels? of(BuildContext context) {
     final provider =
         context.dependOnInheritedWidgetOfExactType<MediaPickerLabelsProvider>();
     assert(provider != null);
-    return provider.value;
+    return provider?.value;
   }
 
   factory MediaPickerLabels.fallback() => const MediaPickerLabels(
@@ -47,9 +47,9 @@ class MediaPickerLabelsProvider extends InheritedWidget {
   final MediaPickerLabels value;
 
   const MediaPickerLabelsProvider({
-    Key key,
-    @required Widget child,
-    @required this.value,
+    Key? key,
+    required Widget child,
+    required this.value,
   }) : super(
           key: key,
           child: child,

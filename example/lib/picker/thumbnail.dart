@@ -8,7 +8,7 @@ class MediaThumbnailImage extends StatelessWidget {
   final Media media;
 
   const MediaThumbnailImage({
-    @required this.media,
+    required this.media,
   });
 
   @override
@@ -40,7 +40,7 @@ class MediaCollectionThumbnailImage extends StatelessWidget {
   final MediaCollection collection;
 
   const MediaCollectionThumbnailImage({
-    @required this.collection,
+    required this.collection,
   });
 
   @override

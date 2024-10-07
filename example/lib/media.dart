@@ -11,7 +11,7 @@ class MediaViewerPage extends StatelessWidget {
   final Media media;
 
   const MediaViewerPage({
-    @required this.media,
+    required this.media,
   });
 
   @override
@@ -35,7 +35,7 @@ class MediaImagePlayer extends StatefulWidget {
   final Media media;
 
   const MediaImagePlayer({
-    @required this.media,
+    required this.media,
   });
 
   @override
@@ -43,8 +43,8 @@ class MediaImagePlayer extends StatefulWidget {
 }
 
 class _MediaImagePlayerState extends State<MediaImagePlayer> {
-  File file;
-  Map<String, IfdTag> exif;
+  late File file;
+  late Map<String, IfdTag> exif;
 
   @override
   void initState() {
@@ -56,7 +56,7 @@ class _MediaImagePlayerState extends State<MediaImagePlayer> {
 
   Future<void> initAsync() async {
     try {
-      this.file = await widget.media.getFile();
+      this.file = (await widget.media.getFile())!;
       this.exif = await readExifFromBytes(await this.file.readAsBytes());
       this.setState(() {});
     } catch (e) {
@@ -93,7 +93,7 @@ class MediaVideoPlayer extends StatefulWidget {
   final Media media;
 
   const MediaVideoPlayer({
-    @required this.media,
+    required this.media,
   });
 
   @override
@@ -101,8 +101,8 @@ class MediaVideoPlayer extends StatefulWidget {
 }
 
 class _MediaVideoPlayerState extends State<MediaVideoPlayer> {
-  VideoPlayerController _controller;
-  File _file;
+  late VideoPlayerController _controller;
+  late File _file;
 
   @override
   void initState() {
@@ -114,7 +114,7 @@ class _MediaVideoPlayerState extends State<MediaVideoPlayer> {
 
   Future<void> initAsync() async {
     try {
-      _file = await widget.media.getFile();
+      _file = (await widget.media.getFile())!;
       _controller = VideoPlayerController.file(_file)
         ..initialize().then((_) {
           // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
@@ -127,7 +127,7 @@ class _MediaVideoPlayerState extends State<MediaVideoPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    return _controller != null && _controller.value.initialized
+    return _controller != null && _controller.value.isInitialized
         ? Column(
             children: <Widget>[
               Expanded(
@@ -136,7 +136,7 @@ class _MediaVideoPlayerState extends State<MediaVideoPlayer> {
                   child: VideoPlayer(_controller),
                 ),
               ),
-              RaisedButton(
+              ElevatedButton(
                 onPressed: () {
                   setState(() {
                     _controller.value.isPlaying

@@ -14,7 +14,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  MediaPickerSelection selection;
+  late MediaPickerSelection selection;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -46,7 +46,7 @@ class SelectionGrid extends StatelessWidget {
   final MediaPickerSelection selection;
 
   const SelectionGrid({
-    @required this.selection,
+    required this.selection,
   });
 
   @override

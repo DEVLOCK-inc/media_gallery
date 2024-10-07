@@ -10,7 +10,7 @@ import 'thumbnail.dart';
 class MediasPage extends StatefulWidget {
   final MediaCollection collection;
   MediasPage({
-    @required this.collection,
+    required this.collection,
   });
 
   @override
@@ -23,7 +23,7 @@ class _MediaImagesPageState extends State<MediasPage> {
     final selection = MediaPickerSelection.of(context);
     final labels = MediaPickerLabels.of(context);
     return DefaultTabController(
-      length: selection.mediaTypes.length,
+      length: selection!.mediaTypes.length,
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.collection.name),
@@ -38,8 +38,8 @@ class _MediaImagesPageState extends State<MediasPage> {
                       .map(
                         (x) => Tab(
                           text: x == MediaType.video
-                              ? labels.videos
-                              : labels.images,
+                              ? labels?.videos
+                              : labels?.images,
                         ),
                       )
                       .toList(),
@@ -66,9 +66,9 @@ class MediaGrid extends StatefulWidget {
   final MediaCollection collection;
   final MediaType mediaType;
   MediaGrid({
-    Key key,
-    @required this.mediaType,
-    @required this.collection,
+    required Key key,
+    required this.mediaType,
+    required this.collection,
   }) : super(key: key);
 
   @override
@@ -147,7 +147,7 @@ class _MediaGridState extends State<MediaGrid>
           ...allMedias.map<Widget>(
             (x) => AnimatedBuilder(
               key: Key(x.id),
-              animation: selection,
+              animation: selection!,
               builder: (context, _) => InkWell(
                 onTap: () => selection.toggle(x),
                 child: Selectable(

@@ -13,15 +13,15 @@ class MediaPicker extends StatefulWidget {
   final MediaPickerLabels labels;
 
   const MediaPicker({
-    Key key,
-    this.labels,
-    this.initialSelection,
+    Key? key,
+    required this.labels,
+    required this.initialSelection,
   });
 
-  static Future<MediaPickerSelection> show(
+  static Future<MediaPickerSelection?> show(
     BuildContext context, {
     int maxImages = 10,
-    MediaPickerLabels labels,
+    MediaPickerLabels? labels,
   }) async {
     final mediaStatus = await Permission.photos.status;
     if (mediaStatus.isDenied && Platform.isIOS) {
@@ -32,7 +32,7 @@ class MediaPicker extends StatefulWidget {
           content: Text(
               "This app can't have access to user media gallery. You must update authorizations in app settings."),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
               child: Text('Open Settings'),
               onPressed: () {
                 openAppSettings();
@@ -48,7 +48,7 @@ class MediaPicker extends StatefulWidget {
         context,
         MaterialPageRoute(
           builder: (context) => MediaPicker(
-            labels: labels,
+            labels: labels!,
             initialSelection: MediaPickerSelection(
               mediaTypes: [
                 MediaType.image,
@@ -69,7 +69,7 @@ class MediaPicker extends StatefulWidget {
 }
 
 class _MediaPickerState extends State<MediaPicker> {
-  MediaPickerSelection _selection;
+  late MediaPickerSelection _selection;
 
   @override
   void initState() {

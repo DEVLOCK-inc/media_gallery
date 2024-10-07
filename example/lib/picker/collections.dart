@@ -27,9 +27,8 @@ class _MediaCollectionsPageState extends State<MediaCollectionsPage> {
   Future<void> initAsync() async {
     final selection = MediaPickerSelection.of(context);
     try {
-      collections = await MediaGallery.listMediaCollections(
-        mediaTypes: selection.mediaTypes,
-      );
+      collections = await MediaGallery.listMediaCollections(mediaTypes: selection!.mediaTypes);
+
       setState(() {});
     } catch (e) {
       print('Failed : $e');
@@ -42,13 +41,13 @@ class _MediaCollectionsPageState extends State<MediaCollectionsPage> {
     final labels = MediaPickerLabels.of(context);
     final allCollection = collections.firstWhere(
       (c) => c.isAllCollection,
-      orElse: () => null,
+      // orElse: () => null,
     );
     return DefaultTabController(
-      length: selection.mediaTypes.length + 1,
+      length: (selection?.mediaTypes.length ?? 0) + 1,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(labels.collectionsTitle),
+          title: Text(labels!.collectionsTitle),
           actions: <Widget>[
             PickerValidateButton(
               onValidate: (selection) => Navigator.pop(context, selection),
@@ -56,7 +55,7 @@ class _MediaCollectionsPageState extends State<MediaCollectionsPage> {
           ],
           bottom: TabBar(
             tabs: [
-              ...selection.mediaTypes.map(
+              ...?selection?.mediaTypes.map(
                 (x) => Tab(
                   text: x == MediaType.video ? labels.videos : labels.images,
                 ),
@@ -69,7 +68,7 @@ class _MediaCollectionsPageState extends State<MediaCollectionsPage> {
         ),
         body: TabBarView(
           children: [
-            ...selection.mediaTypes.map(
+            ...?selection?.mediaTypes.map(
               (x) => allCollection == null
                   ? SizedBox()
                   : MediaGrid(

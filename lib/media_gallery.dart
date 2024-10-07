@@ -21,7 +21,7 @@ class MediaGallery {
 
   /// List all available media gallery collections and counts number of
   /// items of [mediaTypes].
-  static Future<List<dynamic>> listMediaCollections({
+  static Future<List<MediaCollection>> listMediaCollections({
     required List<MediaType> mediaTypes,
   }) async {
     assert(mediaTypes != null);

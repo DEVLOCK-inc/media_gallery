@@ -10,7 +10,7 @@ class MediaAlbums extends StatelessWidget {
   final List<MediaCollection> collections;
 
   const MediaAlbums({
-    @required this.collections,
+    required this.collections,
   });
 
   @override
@@ -27,9 +27,9 @@ class MediaAlbums extends StatelessWidget {
                 context,
                 MaterialPageRoute(
                   builder: (context) => MediaPickerSelectionProvider(
-                    selection: selection,
+                    selection: selection!,
                     child: MediaPickerLabelsProvider(
-                      value: labels,
+                      value: labels!,
                       child: MediasPage(
                         collection: x,
                       ),
@@ -47,7 +47,7 @@ class MediaAlbums extends StatelessWidget {
     return ListView.separated(
       separatorBuilder: (context, i) => Container(
         height: 1,
-        color: theme.textTheme.body1.color.withOpacity(0.12),
+        color: theme.textTheme.bodyMedium?.color?.withOpacity(0.12),
       ),
       itemBuilder: (context, i) => children[i],
       itemCount: children.length,
@@ -60,8 +60,8 @@ class AlbumTile extends StatelessWidget {
   final MediaCollection collection;
 
   const AlbumTile({
-    @required this.onTap,
-    @required this.collection,
+    required this.onTap,
+    required this.collection,
   });
 
   @override
@@ -84,7 +84,7 @@ class AlbumTile extends StatelessWidget {
                   child: Container(
                     width: 64,
                     height: 64,
-                    color: theme.textTheme.subhead.color.withOpacity(0.1),
+                    color: theme.textTheme.titleMedium?.color?.withOpacity(0.1),
                     child:
                         MediaCollectionThumbnailImage(collection: collection),
                   ),
@@ -99,11 +99,11 @@ class AlbumTile extends StatelessWidget {
                     children: [
                       Text(
                         collection.name,
-                        style: theme.textTheme.subhead,
+                        style: theme.textTheme.titleMedium,
                       ),
                       Text(
-                        '${collection.count} ${labels.items}',
-                        style: theme.textTheme.caption,
+                        '${collection.count} ${labels?.items}',
+                        style: theme.textTheme.bodySmall,
                       ),
                     ],
                   ),
